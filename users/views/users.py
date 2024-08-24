@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from rest_framework.generics import RetrieveAPIView
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
+
 from common.views.mixins import LCRUDViewSet
 from users.serializers.api.users import (
     UserGetSerializer,
@@ -41,7 +42,7 @@ class UserView(LCRUDViewSet):
 
 
 @extend_schema_view(
-    get=extend_schema(summary='Профиль пользователя', tags=['Пользователи']),
+    get=extend_schema(summary='Профиль пользователя', tags=['Пользователи'])
 )
 class MeUserView(RetrieveAPIView):
     permission_classes = [IsAuthenticated]
