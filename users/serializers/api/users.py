@@ -34,6 +34,10 @@ class UserCreateSerializer(serializers.ModelSerializer):
             'password',
         )
 
+    def validate(self, attrs):
+        attrs['username'] = attrs['email']
+        return super().validate(attrs)
+
     def validate_dob(self, value):
         now = timezone.now().date()
         age = relativedelta(now, value).years
@@ -65,6 +69,10 @@ class UserUpdateSerializer(serializers.ModelSerializer):
             'email',
             'phone',
         )
+
+    def validate(self, attrs):
+        attrs['username'] = attrs['email']
+        return super().validate(attrs)
 
     def validate_dob(self, value):
         now = timezone.now().date()

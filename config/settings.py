@@ -51,8 +51,6 @@ INSTALLED_APPS += [
 
 # Custom user model
 AUTH_USER_MODEL = 'users.User'
-# Custom backend
-# AUTHENTICATION_BACKENDS = ('users.backends.AuthBackend',)
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',

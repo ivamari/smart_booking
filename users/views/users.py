@@ -48,7 +48,7 @@ class MeUserView(RetrieveAPIView):
     permission_classes = [IsAuthenticated]
     queryset = User.objects.all()
     serializer_class = MeUserSerializer
-    http_method_names = ('get',)
 
     def get_object(self):
+        print(self.request.user)
         return self.request.user

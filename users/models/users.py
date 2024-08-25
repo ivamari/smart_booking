@@ -2,9 +2,6 @@ from django.db import models
 
 from django.contrib.auth.models import AbstractUser
 from phonenumber_field.modelfields import PhoneNumberField
-from transliterate import translit
-
-from users.managers import CustomUserManager
 
 
 class User(AbstractUser):
@@ -13,12 +10,8 @@ class User(AbstractUser):
     middle_name = models.CharField('Отчество', max_length=64, null=True,
                                    blank=True)
     dob = models.DateField('Дата рождения', null=True, blank=True)
-    email = models.EmailField('Почта', unique=True, null=True, blank=True)
+    email = models.EmailField('Почта', unique=True)
     phone = PhoneNumberField('Телефон')
-
-    USERNAME_FIELD = 'username'
-
-    objects = CustomUserManager()
 
     class Meta:
         verbose_name = 'Пользователь'
