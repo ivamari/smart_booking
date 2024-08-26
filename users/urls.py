@@ -10,6 +10,6 @@ router_users = DefaultRouter()
 router_users.register(r'', UserView, 'users')
 
 urlpatterns = [
-    path('users/', include(router_users.urls)),
     path('users/me/', MeUserView.as_view(), name='me'),
+    path('users/', include(router_users.urls)),
 ]
