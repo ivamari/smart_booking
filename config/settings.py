@@ -42,6 +42,7 @@ INSTALLED_APPS += [
     'crm',
     'reservations',
     'clients',
+    'hotels',
 ]
 
 # after apps

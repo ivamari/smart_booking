@@ -6,6 +6,8 @@ from django.utils import timezone
 from rest_framework import serializers
 from rest_framework.exceptions import ParseError
 
+from common.validators import validate_dob
+
 User = get_user_model()
 
 
@@ -39,13 +41,7 @@ class UserCreateSerializer(serializers.ModelSerializer):
         return super().validate(attrs)
 
     def validate_dob(self, value):
-        now = timezone.now().date()
-        age = relativedelta(now, value).years
-
-        if not 0 < age < 100:
-            raise ParseError('Проверьте дату рождения')
-
-        return value
+        return validate_dob(value)
 
     def validate_password(self, value):
         validate_password(value)
@@ -75,13 +71,7 @@ class UserUpdateSerializer(serializers.ModelSerializer):
         return super().validate(attrs)
 
     def validate_dob(self, value):
-        now = timezone.now().date()
-        age = relativedelta(now, value).years
-
-        if not 0 < age < 100:
-            raise ParseError('Проверьте дату рождения')
-
-        return value
+        return validate_dob(value)
 
 
 class MeUserSerializer(serializers.ModelSerializer):
