@@ -11,4 +11,5 @@ class Hotel(models.Model):
         verbose_name_plural = 'Отели'
 
     def __str__(self):
-        return f'{self.pk} - {self.name}'
+        return f'Отель {self.name} ({self.pk})'
+

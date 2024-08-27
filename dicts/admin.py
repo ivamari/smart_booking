@@ -12,4 +12,4 @@ class GenderAdmin(admin.ModelAdmin):
 @admin.register(AgeType)
 class GenderAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'age_from', 'age_to')
-    list_display_links = ('id', 'name')
+    list_display_links = ('name', )

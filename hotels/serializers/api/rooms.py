@@ -22,10 +22,15 @@ class RoomCreateSerializer(serializers.ModelSerializer):
         model = Room
         fields = (
             'id',
-            'name',
+            'number',
             'accommodation_type',
             'description',
         )
+
+    def to_representation(self, instance):
+        request = self.context.get('request')
+        return RoomGetSerializer(
+            instance, context={'request': request}).data
 
 
 class RoomUpdateSerializer(serializers.ModelSerializer):
@@ -33,7 +38,12 @@ class RoomUpdateSerializer(serializers.ModelSerializer):
         model = Room
         fields = (
             'id',
-            'name',
+            'number',
             'accommodation_type',
             'description',
         )
+
+    def to_representation(self, instance):
+        request = self.context.get('request')
+        return RoomGetSerializer(
+            instance, context={'request': request}).data

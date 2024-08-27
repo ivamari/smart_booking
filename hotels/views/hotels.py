@@ -3,9 +3,7 @@ from rest_framework.permissions import IsAdminUser
 
 from common.views.mixins import LCRUDViewSet
 from hotels.models.hotels import Hotel
-from hotels.serializers.api.hotels import (HotelGetSerializer,
-                                           HotelCreateSerializer,
-                                           HotelUpdateSerializer)
+from hotels.serializers.api.hotels import HotelSerializer
 
 
 @extend_schema_view(
@@ -22,13 +20,5 @@ from hotels.serializers.api.hotels import (HotelGetSerializer,
 class HotelView(LCRUDViewSet):
     permission_classes = [IsAdminUser]
     queryset = Hotel.objects.all()
+    serializer_class = HotelSerializer
     http_method_names = ('get', 'post', 'patch', 'delete',)
-
-    def get_serializer_class(self):
-        if self.action == 'list' or self.action == 'retrieve':
-            return HotelGetSerializer
-        elif self.action == 'create':
-            return HotelCreateSerializer
-        elif self.action == 'partial_update':
-            return HotelUpdateSerializer
-        return super().get_serializer_class()

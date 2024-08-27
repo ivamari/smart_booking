@@ -7,7 +7,7 @@ from hotels.serializers.api.dicts import AccommodationTypeGetSerializer
 
 
 @extend_schema_view(
-    get=extend_schema(summary='Список типов размещения', tags=['Словари'])
+    get=extend_schema(summary='Список типов размещений', tags=['Словари'])
 )
 class AccommodationTypeView(ListAPIView):
     permission_classes = [IsAuthenticated]
