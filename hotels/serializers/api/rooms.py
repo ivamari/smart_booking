@@ -4,7 +4,20 @@ from hotels.models.rooms import Room
 from hotels.serializers.api.dicts import AccommodationTypeGetSerializer
 
 
-class RoomGetSerializer(serializers.ModelSerializer):
+class RoomListSerializer(serializers.ModelSerializer):
+    accommodation_type = AccommodationTypeGetSerializer()
+
+    class Meta:
+        model = Room
+        fields = (
+            'id',
+            'number',
+            'accommodation_type',
+            'description',
+        )
+
+
+class RoomRetrieveSerializer(serializers.ModelSerializer):
     accommodation_type = AccommodationTypeGetSerializer()
 
     class Meta:
@@ -27,10 +40,10 @@ class RoomCreateSerializer(serializers.ModelSerializer):
             'description',
         )
 
-    def to_representation(self, instance):
-        request = self.context.get('request')
-        return RoomGetSerializer(
-            instance, context={'request': request}).data
+    def create(self, validated_data):
+        hotel_id = self.context['view'].kwargs.get('id')
+        validated_data['hotel_id'] = hotel_id
+        return super().create(validated_data)
 
 
 class RoomUpdateSerializer(serializers.ModelSerializer):
@@ -43,7 +56,9 @@ class RoomUpdateSerializer(serializers.ModelSerializer):
             'description',
         )
 
-    def to_representation(self, instance):
-        request = self.context.get('request')
-        return RoomGetSerializer(
-            instance, context={'request': request}).data
+    def update(self, instance, validated_data):
+        hotel_id = self.context['view'].kwargs.get('id')
+        validated_data['hotel_id'] = hotel_id
+        return super().update(instance, validated_data)
+
+
