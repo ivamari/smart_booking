@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from hotels.models.rooms import Room
+from hotels.models.rooms import HotelRoom
 from hotels.serializers.api.dicts import AccommodationTypeGetSerializer
 
 
@@ -8,7 +8,7 @@ class RoomListSerializer(serializers.ModelSerializer):
     accommodation_type = AccommodationTypeGetSerializer()
 
     class Meta:
-        model = Room
+        model = HotelRoom
         fields = (
             'id',
             'number',
@@ -21,7 +21,7 @@ class RoomRetrieveSerializer(serializers.ModelSerializer):
     accommodation_type = AccommodationTypeGetSerializer()
 
     class Meta:
-        model = Room
+        model = HotelRoom
         fields = (
             'id',
             'number',
@@ -32,7 +32,7 @@ class RoomRetrieveSerializer(serializers.ModelSerializer):
 
 class RoomCreateSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Room
+        model = HotelRoom
         fields = (
             'id',
             'number',
@@ -48,7 +48,7 @@ class RoomCreateSerializer(serializers.ModelSerializer):
 
 class RoomUpdateSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Room
+        model = HotelRoom
         fields = (
             'id',
             'number',

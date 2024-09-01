@@ -2,12 +2,12 @@ from django.urls import path, include
 from hotels.views.dicts import AccommodationTypeView
 from rest_framework.routers import DefaultRouter
 from hotels.views.hotels import HotelView
-from hotels.views.rooms import RoomView
+from hotels.views.rooms import HotelRoomView
 
 router_hotels = DefaultRouter()
 router_rooms = DefaultRouter()
 router_hotels.register(r'', HotelView, 'hotels')
-router_rooms.register(r'', RoomView, 'rooms')
+router_rooms.register(r'', HotelRoomView, 'rooms')
 
 urlpatterns = [
     path('dicts/accommodation-types/', AccommodationTypeView.as_view(),

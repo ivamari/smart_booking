@@ -2,7 +2,7 @@ from drf_spectacular.utils import extend_schema_view, extend_schema
 from rest_framework.permissions import IsAdminUser
 
 from common.views.mixins import LCRUDViewSet
-from hotels.models.rooms import Room
+from hotels.models.rooms import HotelRoom
 from hotels.serializers.api.rooms import (RoomCreateSerializer,
                                           RoomUpdateSerializer,
                                           RoomListSerializer,
@@ -20,8 +20,8 @@ from hotels.serializers.api.rooms import (RoomCreateSerializer,
     destroy=extend_schema(summary='Удалить номер отеля',
                           tags=['Номера отеля']),
 )
-class RoomView(LCRUDViewSet):
-    queryset = Room.objects.all()
+class HotelRoomView(LCRUDViewSet):
+    queryset = HotelRoom.objects.all()
     permission_classes = [IsAdminUser]
     serializer_class = RoomListSerializer
 
@@ -38,5 +38,5 @@ class RoomView(LCRUDViewSet):
 
     def get_queryset(self):
         hotel_id = self.kwargs.get('id')
-        queryset = Room.objects.filter(hotel_id=hotel_id)
+        queryset = HotelRoom.objects.filter(hotel_id=hotel_id)
         return queryset
