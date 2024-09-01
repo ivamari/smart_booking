@@ -23,24 +23,20 @@ from hotels.serializers.api.rooms import (RoomCreateSerializer,
 class RoomView(LCRUDViewSet):
     queryset = Room.objects.all()
     permission_classes = [IsAdminUser]
+    serializer_class = RoomListSerializer
 
     http_method_names = ('get', 'post', 'patch', 'delete',)
 
     lookup_url_kwarg = 'room_id'
 
-    def get_serializer_class(self):
-        if self.action == 'list':
-            return RoomListSerializer
-        elif self.action == 'retrieve':
-            return RoomRetrieveSerializer
-        elif self.action == 'create':
-            return RoomCreateSerializer
-        elif self.action == 'partial_update':
-            return RoomUpdateSerializer
-        return super().get_serializer_class()
+    multi_serializer_class = {
+        'list': RoomListSerializer,
+        'retrieve': RoomRetrieveSerializer,
+        'create': RoomCreateSerializer,
+        'partial_update': RoomUpdateSerializer,
+    }
 
     def get_queryset(self):
         hotel_id = self.kwargs.get('id')
         queryset = Room.objects.filter(hotel_id=hotel_id)
         return queryset
-

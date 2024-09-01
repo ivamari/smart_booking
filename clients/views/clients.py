@@ -2,7 +2,8 @@ from drf_spectacular.utils import extend_schema_view, extend_schema
 from rest_framework.permissions import IsAdminUser
 
 from clients.models.clients import Client
-from clients.serializers.api.clients import (ClientGetSerializer,
+from clients.serializers.api.clients import (ClientListSerializer,
+                                             ClientRetrieveSerializer,
                                              ClientCreateSerializer,
                                              ClientUpdateSerializer)
 from common.views.mixins import LCRUDViewSet
@@ -22,13 +23,13 @@ from common.views.mixins import LCRUDViewSet
 class ClientView(LCRUDViewSet):
     permission_classes = [IsAdminUser]
     queryset = Client.objects.all()
+    serializer_class = ClientListSerializer
     http_method_names = ('get', 'post', 'patch', 'delete',)
 
-    def get_serializer_class(self):
-        if self.action == 'list' or self.action == 'retrieve':
-            return ClientGetSerializer
-        elif self.action == 'create':
-            return ClientCreateSerializer
-        elif self.action == 'partial_update':
-            return ClientUpdateSerializer
-        return super().get_serializer_class()
+    multi_serializer_class = {
+        'list': ClientListSerializer,
+        'retrieve': ClientRetrieveSerializer,
+        'create': ClientCreateSerializer,
+        'partial_update': ClientUpdateSerializer,
+    }
+

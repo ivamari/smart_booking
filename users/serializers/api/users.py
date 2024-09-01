@@ -11,7 +11,19 @@ from common.validators import validate_dob
 User = get_user_model()
 
 
-class UserGetSerializer(serializers.ModelSerializer):
+class UserListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = (
+            'id',
+            'full_name',
+            'dob',
+            'email',
+            'phone',
+        )
+
+
+class UserRetrieveSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = (
@@ -54,7 +66,6 @@ class UserCreateSerializer(serializers.ModelSerializer):
 
 
 class UserUpdateSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = User
         fields = (

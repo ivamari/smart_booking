@@ -6,7 +6,22 @@ from dicts.models.dicts import Gender
 from dicts.serializers.api.dicts import GenderGetSerializer
 
 
-class ClientGetSerializer(serializers.ModelSerializer):
+class ClientListSerializer(serializers.ModelSerializer):
+    gender = GenderGetSerializer()
+
+    class Meta:
+        model = Client
+        fields = (
+            'id',
+            'full_name',
+            'dob',
+            'email',
+            'phone',
+            'gender',
+        )
+
+
+class ClientRetrieveSerializer(serializers.ModelSerializer):
     gender = GenderGetSerializer()
 
     class Meta:

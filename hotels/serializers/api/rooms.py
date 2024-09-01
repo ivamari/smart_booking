@@ -40,10 +40,10 @@ class RoomCreateSerializer(serializers.ModelSerializer):
             'description',
         )
 
-    def create(self, validated_data):
+    def validate(self, attrs):
         hotel_id = self.context['view'].kwargs.get('id')
-        validated_data['hotel_id'] = hotel_id
-        return super().create(validated_data)
+        attrs['hotel_id'] = hotel_id
+        return attrs
 
 
 class RoomUpdateSerializer(serializers.ModelSerializer):
@@ -56,9 +56,7 @@ class RoomUpdateSerializer(serializers.ModelSerializer):
             'description',
         )
 
-    def update(self, instance, validated_data):
+    def validate(self, attrs):
         hotel_id = self.context['view'].kwargs.get('id')
-        validated_data['hotel_id'] = hotel_id
-        return super().update(instance, validated_data)
-
-
+        attrs['hotel_id'] = hotel_id
+        return attrs

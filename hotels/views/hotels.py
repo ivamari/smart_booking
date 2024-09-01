@@ -23,15 +23,12 @@ from hotels.serializers.api.hotels import (HotelCreateSerializer,
 class HotelView(LCRUDViewSet):
     permission_classes = [IsAdminUser]
     queryset = Hotel.objects.all()
+    serializer_class = HotelListSerializer
     http_method_names = ('get', 'post', 'patch', 'delete',)
 
-    def get_serializer_class(self):
-        if self.action == 'list':
-            return HotelListSerializer
-        elif self.action == 'retrieve':
-            return HotelRetrieveSerializer
-        elif self.action == 'create':
-            return HotelCreateSerializer
-        elif self.action == 'partial_update':
-            return HotelUpdateSerializer
-        return super().get_serializer_class()
+    multi_serializer_class = {
+        'list': HotelListSerializer,
+        'retrieve': HotelRetrieveSerializer,
+        'create': HotelCreateSerializer,
+        'partial_update': HotelUpdateSerializer,
+    }
