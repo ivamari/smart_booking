@@ -42,12 +42,16 @@ INSTALLED_APPS += [
     'crm',
     'reservations',
     'clients',
+    'hotels',
 ]
 
 # after apps
 INSTALLED_APPS += [
     'drf_spectacular',
 ]
+
+if DEBUG:
+    INSTALLED_APPS += ['debug_toolbar']
 
 # Custom user model
 AUTH_USER_MODEL = 'users.User'
@@ -61,7 +65,19 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'crum.CurrentRequestUserMiddleware',
 ]
+
+if DEBUG:
+    MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware']
+
+######################
+# DJANGO DEBUG TOOLBAR
+######################
+if DEBUG:
+    INTERNAL_IPS = [
+        '127.0.0.1',
+    ]
 
 ROOT_URLCONF = 'config.urls'
 

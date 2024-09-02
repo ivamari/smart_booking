@@ -3,14 +3,12 @@ from django.contrib.auth import get_user_model
 from rest_framework.generics import RetrieveAPIView
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
-
 from common.views.mixins import LCRUDViewSet
-from users.serializers.api.users import (
-    UserGetSerializer,
-    UserCreateSerializer,
-    UserUpdateSerializer,
-    MeUserSerializer,
-)
+from users.serializers.api.users import (UserListSerializer,
+                                         UserRetrieveSerializer,
+                                         UserCreateSerializer,
+                                         UserUpdateSerializer,
+                                         MeUserSerializer)
 
 User = get_user_model()
 
@@ -31,14 +29,12 @@ class UserView(LCRUDViewSet):
     queryset = User.objects.all()
     http_method_names = ('get', 'post', 'patch', 'delete',)
 
-    def get_serializer_class(self):
-        if self.action == 'list' or self.action == 'retrieve':
-            return UserGetSerializer
-        elif self.action == 'create':
-            return UserCreateSerializer
-        elif self.action == 'partial_update':
-            return UserUpdateSerializer
-        return super().get_serializer_class()
+    multi_serializer_class = {
+        'list': UserListSerializer,
+        'retrieve': UserRetrieveSerializer,
+        'create': UserCreateSerializer,
+        'partial_update': UserUpdateSerializer,
+    }
 
 
 @extend_schema_view(
