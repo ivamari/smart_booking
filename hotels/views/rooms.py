@@ -38,5 +38,6 @@ class HotelRoomView(LCRUDViewSet):
 
     def get_queryset(self):
         hotel_id = self.kwargs.get('id')
-        queryset = HotelRoom.objects.filter(hotel_id=hotel_id)
+        queryset = HotelRoom.objects.filter(hotel_id=hotel_id).select_related(
+            'accommodation_type')
         return queryset

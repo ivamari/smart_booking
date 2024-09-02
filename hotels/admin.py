@@ -43,18 +43,6 @@ class RoomStatusAdmin(admin.ModelAdmin):
     list_display_links = ('code', 'name')
 
 
-@admin.register(HotelRoomStatus)
-class HotelRoomStatusAdmin(admin.ModelAdmin):
-    list_display = ('room', 'status')
-    list_display_links = ('room',)
-
-
-@admin.register(RoomSettings)
-class RoomSettingsAdmin(admin.ModelAdmin):
-    list_display = ('room', 'has_airconditioner', 'has_tv', 'has_wifi')
-    list_display_links = ('room', )
-
-
 @admin.register(HotelRoom)
 class HotelRoomAdmin(admin.ModelAdmin):
     list_display = ('id', 'number', 'hotel_link', 'accommodation_type_link')
