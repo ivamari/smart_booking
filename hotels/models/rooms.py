@@ -7,13 +7,13 @@ from hotels.models.hotels import Hotel
 
 class HotelRoom(models.Model):
     hotel = models.ForeignKey(Hotel, verbose_name='Отель',
-                              related_name='hotel_rooms',
+                              related_name='rooms',
                               on_delete=models.CASCADE)
     number = models.IntegerField('Номер комнаты')
     floor = models.PositiveSmallIntegerField('Этаж')
     accommodation_type = models.ForeignKey(AccommodationType,
                                            verbose_name='Тип размещения',
-                                           related_name='accommodation_type_rooms',
+                                           related_name='rooms',
                                            on_delete=models.SET_NULL,
                                            null=True)
     description = models.TextField('Описание')
@@ -28,10 +28,11 @@ class HotelRoom(models.Model):
 
 class HotelRoomStatus(InfoMixin):
     room = models.OneToOneField(HotelRoom, verbose_name='Номер отеля',
+                                related_name='room_status',
                                 on_delete=models.CASCADE, primary_key=True)
     status = models.ForeignKey(RoomStatus, verbose_name='Статус номера отеля',
-                               null=True, on_delete=models.SET_NULL,
-                               related_name='hotel_rooms_status')
+                               related_name='info_status',
+                               null=True, on_delete=models.SET_NULL)
 
     class Meta:
         verbose_name = 'Статус номера отеля'
@@ -43,6 +44,7 @@ class HotelRoomStatus(InfoMixin):
 
 class RoomSettings(models.Model):
     room = models.OneToOneField(HotelRoom, verbose_name='Номер отеля',
+                                related_name='settings',
                                 on_delete=models.CASCADE, primary_key=True)
     has_airconditioner = models.BooleanField('Наличие кондиционера',
                                              default=False)
