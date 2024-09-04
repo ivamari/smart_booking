@@ -2,7 +2,8 @@ from drf_spectacular.utils import extend_schema_view, extend_schema
 from rest_framework.permissions import IsAdminUser
 
 from common.views.mixins import LCRUDViewSet
-from hotels.models.rooms import HotelRoom
+from hotels.models.dicts import RoomStatus
+from hotels.models.rooms import HotelRoom, HotelRoomSettings, HotelRoomStatus
 from hotels.serializers.api.rooms import (RoomCreateSerializer,
                                           RoomUpdateSerializer,
                                           RoomListSerializer,
@@ -39,5 +40,17 @@ class HotelRoomView(LCRUDViewSet):
     def get_queryset(self):
         hotel_id = self.kwargs.get('id')
         queryset = HotelRoom.objects.filter(hotel_id=hotel_id).select_related(
-            'accommodation_type')
+            'accommodation_type',
+            'room_status',
+            'settings',
+            'room_status__status',
+            'room_status__updated_by')
         return queryset
+
+    def perform_create(self, serializer):
+        room = serializer.save()
+
+        HotelRoomSettings.objects.create(room=room)
+
+        created_status = RoomStatus.objects.get(code='created')
+        HotelRoomStatus.objects.create(room=room, status=created_status)

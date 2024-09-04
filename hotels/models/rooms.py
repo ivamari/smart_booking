@@ -42,7 +42,7 @@ class HotelRoomStatus(InfoMixin):
         return f'{self.room} - {self.status}'
 
 
-class RoomSettings(models.Model):
+class HotelRoomSettings(models.Model):
     room = models.OneToOneField(HotelRoom, verbose_name='Номер отеля',
                                 related_name='settings',
                                 on_delete=models.CASCADE, primary_key=True)
