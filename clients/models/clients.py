@@ -13,7 +13,7 @@ class Client(models.Model):
     email = models.EmailField('Почта', unique=True, null=True, blank=True)
     phone = PhoneNumberField('Телефон', unique=True, null=True, blank=True)
     gender = models.ForeignKey(Gender, verbose_name='Гендер', null=True,
-                               related_name='gender_clients',
+                               related_name='clients',
                                on_delete=models.SET_NULL)
 
     class Meta:
