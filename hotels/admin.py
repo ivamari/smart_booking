@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.utils.html import format_html
 
 from hotels.models.dicts import AccommodationType, RoomStatus
-from hotels.models.hotels import Hotel
+from hotels.models.hotels import Hotel, HotelPolicy
 from hotels.models.rooms import HotelRoom, HotelRoomSettings, HotelRoomStatus
 
 
@@ -20,9 +20,15 @@ class HotelRoomSettingsInline(admin.StackedInline):
     fields = ('has_airconditioner', 'has_tv', 'has_wifi')
 
 
+class HotelPolicyInline(admin.StackedInline):
+    model = HotelPolicy
+    fields = ('check_in', 'check_out')
+
+
 ##############################
 # MODELS
 ##############################
+
 
 @admin.register(HotelRoomSettings)
 class RoomSettingsAdmin(admin.ModelAdmin):
@@ -46,6 +52,10 @@ class AccommodationTypeAdmin(admin.ModelAdmin):
 class HotelAdmin(admin.ModelAdmin):
     list_display = ('id', 'name')
     list_display_links = ('id', 'name')
+
+    inlines = (
+        HotelPolicyInline,
+    )
 
 
 @admin.register(RoomStatus)

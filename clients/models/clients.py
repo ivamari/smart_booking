@@ -12,9 +12,8 @@ class Client(models.Model):
     dob = models.DateField('Дата рождения', null=True, blank=True)
     email = models.EmailField('Почта', unique=True, null=True, blank=True)
     phone = PhoneNumberField('Телефон', unique=True, null=True, blank=True)
-    gender = models.ForeignKey(Gender, verbose_name='Гендер', null=True,
-                               related_name='clients',
-                               on_delete=models.SET_NULL)
+    gender = models.ForeignKey(Gender, models.RESTRICT, 'clients',
+                               verbose_name='Гендер')
 
     class Meta:
         verbose_name = 'Клиент'
