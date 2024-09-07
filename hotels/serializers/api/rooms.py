@@ -9,7 +9,7 @@ from hotels.serializers.nested.rooms import HotelRoomSettingsSerializer, \
 class RoomListSerializer(serializers.ModelSerializer):
     accommodation_type = AccommodationTypeGetSerializer()
     settings = HotelRoomSettingsSerializer()
-    status_info = HotelRoomStatusSerializer(source='room_status')
+    status_info = HotelRoomStatusSerializer(source='status')
 
     class Meta:
         model = HotelRoom

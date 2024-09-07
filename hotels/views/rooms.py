@@ -41,10 +41,10 @@ class HotelRoomView(LCRUDViewSet):
         hotel_id = self.kwargs.get('id')
         queryset = HotelRoom.objects.filter(hotel_id=hotel_id).select_related(
             'accommodation_type',
-            'room_status',
+            'status',
             'settings',
-            'room_status__status',
-            'room_status__updated_by')
+            'status__status',
+            'status__updated_by')
         return queryset
 
     def perform_create(self, serializer):
