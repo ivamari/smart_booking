@@ -2,12 +2,16 @@ from drf_spectacular.utils import extend_schema_view, extend_schema
 from rest_framework.permissions import IsAdminUser
 
 from common.views.mixins import LCRUDViewSet
+from hotels.filters import HotelRoomFilter
 from hotels.models.dicts import RoomStatus
 from hotels.models.rooms import HotelRoom, HotelRoomSettings, HotelRoomStatus
 from hotels.serializers.api.rooms import (RoomCreateSerializer,
                                           RoomUpdateSerializer,
                                           RoomListSerializer,
                                           RoomRetrieveSerializer)
+
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import SearchFilter
 
 
 @extend_schema_view(
@@ -36,6 +40,14 @@ class HotelRoomView(LCRUDViewSet):
         'create': RoomCreateSerializer,
         'partial_update': RoomUpdateSerializer,
     }
+
+    filter_backends = (
+        SearchFilter,
+        DjangoFilterBackend,
+    )
+
+    search_fields = ('name', 'description',)
+    filterset_class = HotelRoomFilter
 
     def get_queryset(self):
         hotel_id = self.kwargs.get('id')

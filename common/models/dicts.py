@@ -13,7 +13,7 @@ class BaseDictModelMixin(models.Model):
         abstract = True
 
     def __str__(self):
-        return f'{self.code} ({self.name})'
+        return self.code
 
 
 class ExtendedDictModelMixin(BaseDictModelMixin):

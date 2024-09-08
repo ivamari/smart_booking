@@ -26,3 +26,5 @@ class HotelRoomStatusSerializer(serializers.ModelSerializer):
             'updated_at',
             'updated_by'
         )
+
+
