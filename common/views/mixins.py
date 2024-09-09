@@ -1,8 +1,22 @@
+from django.shortcuts import get_object_or_404
 from rest_framework import mixins
 from rest_framework.viewsets import GenericViewSet
 
 
-class ExtendedView:
+class ExtendedMixinView:
+    def get_value_from_url(self, value):
+        return self.kwargs.get(value)
+
+    def get_object_from_model(self, key, model, field, raise_not_found=False):
+        lookup = {field: key}
+
+        if raise_not_found:
+            return get_object_or_404(model, **lookup)
+        else:
+            return model.objects.filter(**lookup).first()
+
+
+class ExtendedView(ExtendedMixinView):
     multi_serializer_class = {}
 
     def get_serializer_class(self):

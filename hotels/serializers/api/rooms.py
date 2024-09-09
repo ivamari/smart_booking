@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
-from hotels.models.dicts import AccommodationType
+from common.serializers.mixins import ExtendedModelSerializer
+from hotels.models.hotels import Hotel
 from hotels.models.rooms import HotelRoom
 from hotels.serializers.api.dicts import AccommodationTypeGetSerializer
 from hotels.serializers.nested.rooms import (HotelRoomSettingsSerializer,
@@ -51,7 +52,7 @@ class RoomRetrieveSerializer(serializers.ModelSerializer):
         )
 
 
-class RoomCreateSerializer(serializers.ModelSerializer):
+class RoomCreateSerializer(ExtendedModelSerializer):
     class Meta:
         model = HotelRoom
         fields = (
@@ -63,21 +64,20 @@ class RoomCreateSerializer(serializers.ModelSerializer):
         )
 
     def validate(self, attrs):
-        hotel_id = self.context['view'].kwargs.get('id')
+        hotel_id = self.get_value_from_url('id')
+        self.get_object_from_model(hotel_id, Hotel, 'id', raise_not_found=True)
+
         attrs['hotel_id'] = hotel_id
 
-        accommodation_type = AccommodationType.objects.get(
-            code=attrs['accommodation_type'])
-        attrs['max_guests'] = accommodation_type.max_guests
-        attrs['max_adults'] = accommodation_type.max_adults
-        attrs['max_children'] = accommodation_type.max_children
-        attrs['private'] = accommodation_type.private
+        attrs['max_guests'] = attrs['accommodation_type'].max_guests
+        attrs['max_adults'] = attrs['accommodation_type'].max_adults
+        attrs['max_children'] = attrs['accommodation_type'].max_children
+        attrs['private'] = attrs['accommodation_type'].private
 
         return attrs
 
 
-class RoomUpdateSerializer(serializers.ModelSerializer):
-
+class RoomUpdateSerializer(ExtendedModelSerializer):
     class Meta:
         model = HotelRoom
         fields = (
@@ -92,6 +92,6 @@ class RoomUpdateSerializer(serializers.ModelSerializer):
         )
 
     def validate(self, attrs):
-        hotel_id = self.context['view'].kwargs.get('id')
+        hotel_id = self.get_value_from_url('id')
         attrs['hotel_id'] = hotel_id
         return attrs

@@ -1,6 +1,5 @@
 from django.urls import path, include
-from hotels.views.dicts import (AccommodationTypeView,
-                                AccommodationTypeHotelsView,
+from hotels.views.dicts import (AccommodationTypeHotelsView,
                                 AccommodationTypeSearchView)
 from rest_framework.routers import DefaultRouter
 from hotels.views.hotels import HotelView
@@ -20,8 +19,6 @@ urlpatterns = [
     path('dicts/accommodation-types/search/',
          AccommodationTypeSearchView.as_view(),
          name='accommodation_types_search'),
-    path('dicts/accommodation-types/', AccommodationTypeView.as_view(),
-         name='accommodation_types'),
     path('hotels/dicts/accommodation-types/',
          include(router_accommodation_type.urls)),
     path('hotels/<int:id>/rooms/', include(router_rooms.urls)),

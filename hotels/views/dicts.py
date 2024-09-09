@@ -5,8 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 
 from common.views.mixins import LCRUDViewSet
 from hotels.models.dicts import AccommodationType
-from hotels.serializers.api.dicts import (AccommodationTypeGetSerializer,
-                                          AccommodationTypeListSerializer,
+from hotels.serializers.api.dicts import (AccommodationTypeListSerializer,
                                           AccommodationTypeRetrieveSerializer,
                                           AccommodationTypeCreateSerializer,
                                           AccommodationTypeUpdateSerializer,
@@ -15,15 +14,6 @@ from hotels.serializers.api.dicts import (AccommodationTypeGetSerializer,
 
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
-
-
-@extend_schema_view(
-    get=extend_schema(summary='Список типов размещений', tags=['Словари'])
-)
-class AccommodationTypeView(ListAPIView):
-    permission_classes = [IsAuthenticated]
-    queryset = AccommodationType.objects.all()
-    serializer_class = AccommodationTypeGetSerializer
 
 
 @extend_schema_view(

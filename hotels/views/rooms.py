@@ -50,7 +50,7 @@ class HotelRoomView(LCRUDViewSet):
     filterset_class = HotelRoomFilter
 
     def get_queryset(self):
-        hotel_id = self.kwargs.get('id')
+        hotel_id = self.get_value_from_url('id')
         queryset = HotelRoom.objects.filter(hotel_id=hotel_id).select_related(
             'accommodation_type',
             'status',
@@ -64,5 +64,6 @@ class HotelRoomView(LCRUDViewSet):
 
         HotelRoomSettings.objects.create(room=room)
 
-        created_status = RoomStatus.objects.get(code='created')
+        created_status = self.get_object_from_model('created', RoomStatus,
+                                                    'code')
         HotelRoomStatus.objects.create(room=room, status=created_status)
