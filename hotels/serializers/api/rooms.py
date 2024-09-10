@@ -6,6 +6,7 @@ from hotels.models.rooms import HotelRoom
 from hotels.serializers.api.dicts import AccommodationTypeGetSerializer
 from hotels.serializers.nested.rooms import (HotelRoomSettingsSerializer,
                                              HotelRoomStatusSerializer)
+from hotels.services.creators.rooms import HotelRoomCreatorService
 
 
 class RoomListSerializer(serializers.ModelSerializer):
@@ -75,6 +76,9 @@ class RoomCreateSerializer(ExtendedModelSerializer):
         attrs['private'] = attrs['accommodation_type'].private
 
         return attrs
+
+    def create(self, validated_data):
+        return HotelRoomCreatorService().create_instance(validated_data)
 
 
 class RoomUpdateSerializer(ExtendedModelSerializer):

@@ -3,7 +3,7 @@ from rest_framework import mixins
 from rest_framework.viewsets import GenericViewSet
 
 
-class ExtendedMixinView:
+class ContextDataMixinView:
     def get_value_from_url(self, value):
         return self.kwargs.get(value)
 
@@ -16,7 +16,7 @@ class ExtendedMixinView:
             return model.objects.filter(**lookup).first()
 
 
-class ExtendedView(ExtendedMixinView):
+class ExtendedView(ContextDataMixinView):
     multi_serializer_class = {}
 
     def get_serializer_class(self):

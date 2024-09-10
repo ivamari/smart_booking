@@ -58,12 +58,3 @@ class HotelRoomView(LCRUDViewSet):
             'status__status',
             'status__updated_by')
         return queryset
-
-    def perform_create(self, serializer):
-        room = serializer.save()
-
-        HotelRoomSettings.objects.create(room=room)
-
-        created_status = self.get_object_from_model('created', RoomStatus,
-                                                    'code')
-        HotelRoomStatus.objects.create(room=room, status=created_status)
