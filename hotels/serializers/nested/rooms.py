@@ -1,6 +1,8 @@
 from rest_framework import serializers
 
 from hotels.models.rooms import HotelRoomSettings, HotelRoomStatus
+from hotels.serializers.nested.dicts import RoomStatusSerializer
+from users.serializers.nested.users import UserHotelRoomSerializer
 
 
 class HotelRoomSettingsSerializer(serializers.ModelSerializer):
@@ -14,8 +16,8 @@ class HotelRoomSettingsSerializer(serializers.ModelSerializer):
 
 
 class HotelRoomStatusSerializer(serializers.ModelSerializer):
-    status = serializers.SerializerMethodField()
-    updated_by = serializers.SerializerMethodField()
+    status = RoomStatusSerializer()
+    updated_by = UserHotelRoomSerializer()
 
     class Meta:
         model = HotelRoomStatus
@@ -25,18 +27,4 @@ class HotelRoomStatusSerializer(serializers.ModelSerializer):
             'updated_by'
         )
 
-    def get_status(self, obj):
-        return {
-            "code": obj.status.code,
-            "name": obj.status.name,
-            "color": obj.status.color,
-        }
 
-    def get_updated_by(self, obj):
-        user = obj.updated_by
-        if user:
-            return {
-                "id": user.id,
-                "full_name": user.full_name
-            }
-        return None
