@@ -14,7 +14,7 @@ class HotelRoom(models.Model):
                                            'rooms')
     description = models.TextField('Описание', null=True, blank=True)
     max_guests = models.IntegerField('Кол-во гостей')
-    max_adults = models.IntegerField('Кол-во подростков')
+    max_adults = models.IntegerField('Кол-во взрослых')
     max_children = models.IntegerField('Кол-во детей')
     private = models.BooleanField('Приватный', default=False)
 
