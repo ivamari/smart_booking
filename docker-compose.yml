@@ -1,0 +1,31 @@
+version: '3.11'
+
+services:
+  api:
+    container_name: smart_booking_api
+    restart: unless-stopped
+    user: root
+    build: ./
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./:/app/
+    ports:
+      - 8001:8000
+    depends_on:
+      - db
+  db:
+      restart: unless-stopped
+      image: postgres:14.11-alpine
+      container_name: db_dev
+      volumes:
+        - pg_data:/var/lib/postgresql/data/
+      env_file:
+        - .env
+      environment:
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=123
+        - POSTGRES_DB=smart_booking
+      ports:
+        - 5432:5432
+volumes:
+  pg_data:
