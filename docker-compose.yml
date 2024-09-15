@@ -19,8 +19,6 @@ services:
       container_name: db_dev
       volumes:
         - pg_data:/var/lib/postgresql/data/
-      env_file:
-        - .env
       environment:
         - POSTGRES_USER=smart_booking
         - POSTGRES_PASSWORD=smart_booking
