@@ -5,6 +5,7 @@ from users.urls import urlpatterns as users_urls
 from dicts.urls import urlpatterns as dicts_urls
 from clients.urls import urlpatterns as clients_urls
 from hotels.urls import urlpatterns as hotels_urls
+from reservations.urls import urlpatterns as reservations_urls
 
 app_name = 'api'
 
@@ -17,3 +18,4 @@ urlpatterns += users_urls
 urlpatterns += dicts_urls
 urlpatterns += clients_urls
 urlpatterns += hotels_urls
+urlpatterns += reservations_urls

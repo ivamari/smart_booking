@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from hotels.models.rooms import HotelRoomSettings, HotelRoomStatus
 from hotels.serializers.nested.dicts import RoomStatusSerializer
-from users.serializers.nested.users import UserHotelRoomSerializer
+from users.serializers.nested.users import UserShortSerializer
 
 
 class HotelRoomSettingsSerializer(serializers.ModelSerializer):
@@ -17,7 +17,7 @@ class HotelRoomSettingsSerializer(serializers.ModelSerializer):
 
 class HotelRoomStatusSerializer(serializers.ModelSerializer):
     status = RoomStatusSerializer()
-    updated_by = UserHotelRoomSerializer()
+    updated_by = UserShortSerializer()
 
     class Meta:
         model = HotelRoomStatus
