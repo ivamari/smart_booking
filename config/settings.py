@@ -155,8 +155,8 @@ REST_FRAMEWORK = {
 # DRF SPECTACULAR
 ######################
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'Your Project API',
-    'DESCRIPTION': 'Your project description',
+    'TITLE': 'Smart Booking',
+    'DESCRIPTION': 'Сервис системы бронирования отелей',
     'VERSION': '1.0.0',
 
     'SERVE_PERMISSIONS': [

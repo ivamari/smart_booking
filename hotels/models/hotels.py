@@ -14,7 +14,7 @@ class Hotel(models.Model):
         verbose_name_plural = 'Отели'
 
     def __str__(self):
-        return f'Отель {self.name} ({self.pk})'
+        return f'{self.name} ({self.pk})'
 
 
 class HotelPolicy(models.Model):

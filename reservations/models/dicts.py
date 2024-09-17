@@ -16,4 +16,4 @@ class ReservationRoomStatus(ExtendedDictModelMixin):
         verbose_name_plural = 'Статусы бронирований комнат'
 
     def __str__(self):
-        return self.code
+        return f'{self.name} ({self.code})'

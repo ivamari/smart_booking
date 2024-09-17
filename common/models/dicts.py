@@ -13,7 +13,7 @@ class BaseDictModelMixin(models.Model):
         abstract = True
 
     def __str__(self):
-        return self.code
+        return f'{self.name} ({self.code})'
 
 
 class ExtendedDictModelMixin(BaseDictModelMixin):
@@ -24,12 +24,12 @@ class ExtendedDictModelMixin(BaseDictModelMixin):
         abstract = True
 
     def __str__(self):
-        return f'{self.code} ({self.name})'
+        return f'{self.name} ({self.code})'
 
 
 class DateMixin(models.Model):
-    created_at = models.DateTimeField('Created at', null=True, blank=False)
-    updated_at = models.DateTimeField('Updated at', null=True, blank=False)
+    created_at = models.DateTimeField('Дата создания', null=True, blank=False)
+    updated_at = models.DateTimeField('Дата обновления', null=True, blank=False)
 
     class Meta:
         abstract = True
@@ -44,10 +44,10 @@ class DateMixin(models.Model):
 class InfoMixin(DateMixin):
     created_by = models.ForeignKey(
         User, models.SET_NULL, 'created_%(app_label)s_%(class)s',
-        verbose_name='Created by', null=True,)
+        verbose_name='Создано пользователем', null=True,)
     updated_by = models.ForeignKey(
         User, models.SET_NULL, 'updated_%(app_label)s_%(class)s',
-        verbose_name='Updated by', null=True,)
+        verbose_name='Обновлено пользователем', null=True,)
 
     class Meta:
         abstract = True

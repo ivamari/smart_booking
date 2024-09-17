@@ -13,6 +13,7 @@ from hotels.models.rooms import HotelRoom, HotelRoomSettings, HotelRoomStatus
 class HotelRoomStatusInline(admin.TabularInline):
     model = HotelRoomStatus
     fields = ('status',)
+    autocomplete_fields = ('status', )
 
 
 class HotelRoomSettingsInline(admin.StackedInline):
@@ -34,25 +35,28 @@ class HotelPolicyInline(admin.StackedInline):
 class RoomSettingsAdmin(admin.ModelAdmin):
     list_display = ('room', 'has_airconditioner', 'has_tv', 'has_wifi')
     list_display_links = ('room',)
+    autocomplete_fields = ('room',)
 
 
 @admin.register(HotelRoomStatus)
 class HotelRoomStatusAdmin(admin.ModelAdmin):
     list_display = ('room', 'status')
     list_display_links = ('room',)
+    search_fields = ('status', )
 
 
 @admin.register(AccommodationType)
 class AccommodationTypeAdmin(admin.ModelAdmin):
     list_display = ('code', 'name')
     list_display_links = ('code', 'name')
+    search_fields = ('code', 'name', )
 
 
 @admin.register(Hotel)
 class HotelAdmin(admin.ModelAdmin):
     list_display = ('id', 'name')
     list_display_links = ('id', 'name')
-
+    search_fields = ('name', 'id',)
     inlines = (
         HotelPolicyInline,
     )
@@ -62,13 +66,15 @@ class HotelAdmin(admin.ModelAdmin):
 class RoomStatusAdmin(admin.ModelAdmin):
     list_display = ('code', 'name', 'color', 'sort')
     list_display_links = ('code', 'name')
+    search_fields = ('code', 'name', )
 
 
 @admin.register(HotelRoom)
 class HotelRoomAdmin(admin.ModelAdmin):
     list_display = ('id', 'number', 'hotel_link', 'accommodation_type_link')
     list_display_links = ('id', 'number')
-
+    search_fields = ('id', 'number', )
+    autocomplete_fields = ('hotel', 'accommodation_type', )
     inlines = (
         HotelRoomStatusInline,
         HotelRoomSettingsInline,

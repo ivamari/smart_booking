@@ -6,12 +6,14 @@ from hotels.models.hotels import Hotel
 
 
 class HotelRoom(models.Model):
-    hotel = models.ForeignKey(Hotel, models.CASCADE, 'rooms')
+    hotel = models.ForeignKey(Hotel, models.CASCADE, 'rooms',
+                              verbose_name='Отель')
     number = models.IntegerField('Номер комнаты')
     floor = models.PositiveSmallIntegerField('Этаж')
     accommodation_type = models.ForeignKey(AccommodationType,
                                            models.RESTRICT,
-                                           'rooms')
+                                           'rooms',
+                                           verbose_name='Тип размещения')
     description = models.TextField('Описание', null=True, blank=True)
     max_guests = models.IntegerField('Кол-во гостей')
     max_adults = models.IntegerField('Кол-во взрослых')
@@ -23,7 +25,7 @@ class HotelRoom(models.Model):
         verbose_name_plural = 'Номера отеля'
 
     def __str__(self):
-        return f'{self.number} ({self.hotel}, {self.accommodation_type})'
+        return f'{self.number} ({self.pk})'
 
 
 class HotelRoomStatus(InfoMixin):

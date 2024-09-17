@@ -7,8 +7,9 @@ from users.models.groups import Group
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('id', 'full_name')
+    list_display = ('id', 'full_name', 'email', )
     list_display_links = ('id', 'full_name')
+    filter_horizontal = ('groups', 'user_permissions',)
 
 
 @admin.register(Group)

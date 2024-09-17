@@ -8,6 +8,9 @@ class Gender(BaseDictModelMixin):
         verbose_name = 'Гендер'
         verbose_name_plural = 'Гендеры'
 
+    def __str__(self):
+        return f'{self.name} ({self.code})'
+
 
 class AgeType(models.Model):
     name = models.CharField('Название', max_length=10)

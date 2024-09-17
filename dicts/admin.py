@@ -7,6 +7,7 @@ from dicts.models.dicts import Gender, AgeType
 class GenderAdmin(admin.ModelAdmin):
     list_display = ('code', 'name')
     list_display_links = ('code', 'name')
+    search_fields = ('code', 'name', )
 
 
 @admin.register(AgeType)
