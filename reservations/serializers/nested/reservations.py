@@ -1,20 +1,9 @@
 from rest_framework import serializers
-from reservations.models.reservations import (Reservation, ReservationClient,
+from reservations.models.reservations import (ReservationClient,
                                               ReservationRoom)
 from reservations.serializers.nested.clients import ClientSerializer
 from reservations.serializers.nested.dicts import ReservationStatusSerializer
 from reservations.serializers.nested.rooms import HotelRoomShortSerializer
-
-
-class ReservationRetrieveSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Reservation
-        fields = (
-            'id',
-            'name',
-            'address',
-            'description',
-        )
 
 
 class ReservationClientSerializer(serializers.ModelSerializer):

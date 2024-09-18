@@ -3,19 +3,21 @@ from rest_framework.permissions import IsAdminUser
 
 from common.views.mixins import LCRUDViewSet
 from reservations.models.reservations import Reservation
-from reservations.serializers.api.reservations import ReservationListSerializer
+from reservations.serializers.api.reservations import (ReservationListSerializer,
+                                                       ReservationRetrieveSerializer,
+                                                       ReservationCreateSerializer)
 
 
 @extend_schema_view(
-    # retrieve=extend_schema(summary='Деталка отеля',
-    #                        tags=['Отели']),
+    retrieve=extend_schema(summary='Список бронирований',
+                           tags=['Бронирования']),
     list=extend_schema(summary='Список бронирований', tags=['Бронирования']),
-    # create=extend_schema(summary='Создать отель',
-    #                      tags=['Отели']),
-    # partial_update=extend_schema(summary='Изменить отель частично',
-    #                              tags=['Отели']),
-    # destroy=extend_schema(summary='Удалить отель',
-    #                       tags=['Отели']),
+    create=extend_schema(summary='Создать бронирование',
+                         tags=['Бронирования']),
+    # partial_update=extend_schema(summary='Изменить бронирование частично',
+    #                              tags=['Бронирования']),
+    # destroy=extend_schema(summary='Удалить бронирование',
+    #                       tags=['Бронирования']),
 )
 class ReservationView(LCRUDViewSet):
     permission_classes = [IsAdminUser]
@@ -25,7 +27,7 @@ class ReservationView(LCRUDViewSet):
 
     multi_serializer_class = {
         'list': ReservationListSerializer,
-        # 'retrieve': HotelRetrieveSerializer,
-        # 'create': HotelCreateSerializer,
+        'retrieve': ReservationRetrieveSerializer,
+        'create': ReservationCreateSerializer,
         # 'partial_update': HotelUpdateSerializer,
     }
