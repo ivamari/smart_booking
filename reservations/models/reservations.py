@@ -29,9 +29,9 @@ class ReservationClient(models.Model):
     reservation = models.OneToOneField(Reservation, models.CASCADE,
                                        related_name='reservation_client',
                                        verbose_name='Бронирование')
-    client = models.OneToOneField(Client, models.CASCADE,
-                                  related_name='reservation',
-                                  verbose_name='Клиент')
+    client = models.ForeignKey(Client, models.CASCADE,
+                               related_name='reservation',
+                               verbose_name='Клиент')
     checked = models.BooleanField('Проверено', default=False)
     is_main_client = models.BooleanField('Основной клиент',
                                          default=False)

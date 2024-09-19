@@ -11,7 +11,8 @@ class ReservationCreatorService:
         client = validated_data.get('client')
 
         ReservationClient.objects.create(reservation=reservation,
-                                         client=client)
+                                         client=client,
+                                         is_main_client=True)
 
         for room in rooms:
             ReservationRoom.objects.create(reservation=reservation, room=room,
