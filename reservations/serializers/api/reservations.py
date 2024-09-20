@@ -1,8 +1,8 @@
 from rest_framework import serializers
-from rest_framework.exceptions import ValidationError
 
 from clients.models.clients import Client
 from hotels.models.rooms import HotelRoom
+from reservations.services.updaters.reservations import ReservationUpdateService
 from reservations.validators import (validate_reservation_dates,
                                      validate_total_quests, validate_status)
 from reservations.models.dicts import ReservationStatus
@@ -10,7 +10,7 @@ from reservations.models.reservations import Reservation
 from reservations.serializers.nested.clients import ClientSerializer
 from reservations.serializers.nested.dicts import ReservationStatusSerializer
 from reservations.serializers.nested.reservations import (
-    ReservationClientSerializer, ReservationRoomSerializer)
+    ReservationRoomSerializer)
 from reservations.services.creators.reservations import (
     ReservationCreatorService)
 from users.serializers.nested.users import UserShortSerializer
@@ -21,7 +21,6 @@ class ReservationListSerializer(serializers.ModelSerializer):
     client = ClientSerializer()
     created_by = UserShortSerializer()
     updated_by = UserShortSerializer()
-    clients = ReservationClientSerializer(many=True)
     rooms = ReservationRoomSerializer(many=True)
 
     class Meta:
@@ -39,7 +38,6 @@ class ReservationListSerializer(serializers.ModelSerializer):
             'updated_at',
             'created_by',
             'updated_by',
-            'clients',
             'rooms',
         )
 
@@ -49,7 +47,6 @@ class ReservationRetrieveSerializer(serializers.ModelSerializer):
     client = ClientSerializer()
     created_by = UserShortSerializer()
     updated_by = UserShortSerializer()
-    clients = ReservationClientSerializer(many=True)
     rooms = ReservationRoomSerializer(many=True)
 
     class Meta:
@@ -67,7 +64,6 @@ class ReservationRetrieveSerializer(serializers.ModelSerializer):
             'updated_at',
             'created_by',
             'updated_by',
-            'clients',
             'rooms',
         )
 
@@ -121,3 +117,7 @@ class ReservationUpdateSerializer(serializers.ModelSerializer):
         validate_status(attrs, self.instance)
 
         return attrs
+
+    def update(self, instance, validated_data):
+        return ReservationUpdateService().update_instance(validated_data,
+                                                          instance)

@@ -5,17 +5,25 @@ from reservations.models.reservations import Reservation
 
 def validate_reservation_dates(attrs, instance=None):
     if instance:
-        existing_reservation = Reservation.objects.filter(client=
-                                                          instance.client).filter(
-            start_date__lte=attrs['end_date']).exclude(id=instance.id).first()
+        existing_reservation = Reservation.objects.filter(
+            client=instance.client
+        ).filter(
+            start_date__lte=attrs['end_date'],
+            end_date__gte=attrs['start_date']
+        ).exclude(id=instance.id).first()
+
     else:
         existing_reservation = Reservation.objects.filter(
-            client=attrs['client']).filter(
-            start_date__lte=attrs['end_date']).first()
+            client=attrs['client']
+        ).filter(
+            start_date__lte=attrs['end_date'],
+            end_date__gte=attrs['start_date']
+        ).first()
 
-    if existing_reservation is None:
+    if existing_reservation is not None:
+        print(existing_reservation)
         raise ValidationError(f'Указанный гость уже имеет бронирование №'
-                              f'{existing_reservation.pk} в выбранные даты')
+                              f'{existing_reservation.id} в выбранные даты')
 
 
 def validate_total_quests(attrs):
@@ -24,7 +32,6 @@ def validate_total_quests(attrs):
 
     for room in rooms:
         total_number_rooms += room.max_adults + room.max_children
-        print(total_number_rooms)
 
     if total_number_rooms < (attrs['adults'] + attrs['children']):
         raise ValidationError('Количество гостей не совпадает '
