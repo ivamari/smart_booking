@@ -35,7 +35,7 @@ class ReservationView(LCRUDViewSet):
     }
 
     def perform_destroy(self, instance):
-        if instance.status != 'not_confirmed':
+        if instance.status_id != 'not_confirmed':
             raise ValidationError(f'Нельзя удалить бронирование с '
                                   f'статусом {instance.status}')
         instance.delete()

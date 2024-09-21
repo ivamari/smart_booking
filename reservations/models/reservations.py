@@ -16,7 +16,6 @@ class Reservation(InfoMixin):
     end_date = models.DateField('Дата выселения')
     adults = models.IntegerField('Количество взрослых')
     children = models.IntegerField('Количество детей')
-    rooms = models.ManyToManyField(HotelRoom, through='ReservationRoom')
 
     class Meta:
         verbose_name = 'Бронирование'
@@ -27,9 +26,9 @@ class Reservation(InfoMixin):
 
 
 class ReservationClient(models.Model):
-    reservation = models.OneToOneField(Reservation, models.CASCADE,
-                                       related_name='reservation_client',
-                                       verbose_name='Бронирование')
+    reservation = models.ForeignKey(Reservation, models.CASCADE,
+                                    related_name='clients',
+                                    verbose_name='Бронирование')
     client = models.ForeignKey(Client, models.CASCADE,
                                related_name='reservation',
                                verbose_name='Клиент')

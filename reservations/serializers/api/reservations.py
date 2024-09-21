@@ -69,9 +69,8 @@ class ReservationRetrieveSerializer(serializers.ModelSerializer):
 
 
 class ReservationCreateSerializer(serializers.ModelSerializer):
-    client = serializers.PrimaryKeyRelatedField(queryset=Client.objects.all())
     rooms = serializers.PrimaryKeyRelatedField(queryset=HotelRoom.objects.all(),
-                                               many=True)
+                                               many=True, write_only=True)
 
     class Meta:
         model = Reservation
@@ -99,6 +98,7 @@ class ReservationCreateSerializer(serializers.ModelSerializer):
 
 class ReservationUpdateSerializer(serializers.ModelSerializer):
     rooms = serializers.PrimaryKeyRelatedField(queryset=HotelRoom.objects.all(),
+                                               write_only=True,
                                                many=True)
 
     class Meta:
