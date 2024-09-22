@@ -11,7 +11,7 @@ from reservations.serializers.api.reservations import (
 
 
 @extend_schema_view(
-    retrieve=extend_schema(summary='Список бронирований',
+    retrieve=extend_schema(summary='Деталка бронирования',
                            tags=['Бронирования']),
     list=extend_schema(summary='Список бронирований', tags=['Бронирования']),
     create=extend_schema(summary='Создать бронирование',

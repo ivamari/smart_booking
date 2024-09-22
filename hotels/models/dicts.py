@@ -17,5 +17,5 @@ class AccommodationType(BaseDictModelMixin):
 
 class RoomStatus(ExtendedDictModelMixin):
     class Meta:
-        verbose_name = 'Статус'
-        verbose_name_plural = 'Статусы'
+        verbose_name = 'Статус комнаты'
+        verbose_name_plural = 'Статусы комнаты'

@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.utils.html import format_html
 
+from common.admin import InfoModelAdmin
 from hotels.models.dicts import AccommodationType, RoomStatus
 from hotels.models.hotels import Hotel, HotelPolicy
 from hotels.models.rooms import HotelRoom, HotelRoomSettings, HotelRoomStatus
@@ -39,7 +40,7 @@ class RoomSettingsAdmin(admin.ModelAdmin):
 
 
 @admin.register(HotelRoomStatus)
-class HotelRoomStatusAdmin(admin.ModelAdmin):
+class HotelRoomStatusAdmin(InfoModelAdmin):
     list_display = ('room', 'status')
     list_display_links = ('room',)
     search_fields = ('status', )

@@ -44,6 +44,7 @@ class ClientCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Client
         fields = (
+            'id',
             'first_name',
             'last_name',
             'middle_name',
@@ -63,6 +64,7 @@ class ClientUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Client
         fields = (
+            'id',
             'first_name',
             'last_name',
             'middle_name',

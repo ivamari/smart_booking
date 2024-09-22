@@ -21,7 +21,6 @@ class ReservationListSerializer(serializers.ModelSerializer):
     client = ClientSerializer()
     created_by = UserShortSerializer()
     updated_by = UserShortSerializer()
-    rooms = ReservationRoomSerializer(many=True)
 
     class Meta:
         model = Reservation
@@ -38,7 +37,6 @@ class ReservationListSerializer(serializers.ModelSerializer):
             'updated_at',
             'created_by',
             'updated_by',
-            'rooms',
         )
 
 
@@ -47,7 +45,6 @@ class ReservationRetrieveSerializer(serializers.ModelSerializer):
     client = ClientSerializer()
     created_by = UserShortSerializer()
     updated_by = UserShortSerializer()
-    rooms = ReservationRoomSerializer(many=True)
 
     class Meta:
         model = Reservation
@@ -64,7 +61,6 @@ class ReservationRetrieveSerializer(serializers.ModelSerializer):
             'updated_at',
             'created_by',
             'updated_by',
-            'rooms',
         )
 
 
