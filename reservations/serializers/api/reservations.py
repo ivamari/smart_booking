@@ -1,6 +1,5 @@
 from rest_framework import serializers
 
-from clients.models.clients import Client
 from hotels.models.rooms import HotelRoom
 from reservations.services.updaters.reservations import ReservationUpdateService
 from reservations.validators import (validate_reservation_dates,
@@ -9,8 +8,6 @@ from reservations.models.dicts import ReservationStatus
 from reservations.models.reservations import Reservation
 from reservations.serializers.nested.clients import ClientSerializer
 from reservations.serializers.nested.dicts import ReservationStatusSerializer
-from reservations.serializers.nested.reservations import (
-    ReservationRoomSerializer)
 from reservations.services.creators.reservations import (
     ReservationCreatorService)
 from users.serializers.nested.users import UserShortSerializer

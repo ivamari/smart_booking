@@ -1,6 +1,6 @@
 from rest_framework.exceptions import ValidationError
 
-from reservations.models.reservations import Reservation
+from reservations.models.reservations import Reservation, ReservationRoom
 
 
 def validate_reservation_dates(attrs, instance=None):
@@ -45,3 +45,20 @@ def validate_status(attrs, instance):
             raise ValidationError(f'Нельзя изменять '
                                   f'массив комнат при статусе '
                                   f'бронирования {instance.status}')
+
+
+def validate_reservations_room(room, reservation, instance=None):
+    end_date = reservation.end_date
+    start_date = reservation.start_date
+
+    existing_reservations_room = ReservationRoom.objects.filter(
+        room=room
+    ).filter(
+        reservation__start_date__lte=end_date,
+        reservation__end_date__gte=start_date
+    ).first()
+
+    if existing_reservations_room is not None:
+        raise ValidationError(f'Комната уже имеет бронирование в период c '
+                              f'{start_date} по {end_date}')
+

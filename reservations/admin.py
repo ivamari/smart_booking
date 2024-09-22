@@ -29,11 +29,13 @@ class ReservationRoomInline(admin.TabularInline):
 
 @admin.register(ReservationStatus)
 class ReservationStatusAdmin(admin.ModelAdmin):
-    search_fields = ('name', 'code', )
+    search_fields = ('name', 'code',)
 
 
 @admin.register(ReservationRoom)
 class ReservationRoomAdmin(admin.ModelAdmin):
+    list_display = ('id', 'reservation', 'room', 'status', )
+    list_display_links = ('id', 'reservation', )
     search_fields = ('room', 'status',)
 
 
@@ -44,7 +46,7 @@ class ReservationClientAdmin(admin.ModelAdmin):
 
 @admin.register(ReservationRoomStatus)
 class ReservationRoomStatusAdmin(admin.ModelAdmin):
-    search_fields = ('code', 'name', )
+    search_fields = ('code', 'name',)
 
 
 @admin.register(Reservation)
