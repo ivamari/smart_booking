@@ -3,14 +3,10 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import IsAdminUser
 
 from common.views.mixins import LCRUDViewSet
-from reservations.models.reservations import Reservation, ReservationRoom
-from reservations.serializers.api.reservation_rooms import \
+from reservations.models.reservations import ReservationRoom
+from reservations.serializers.api.rooms import \
     ReservationRoomCreateSerializer, ReservationRoomUpdateSerializer, \
     ReservationRoomListSerializer, ReservationRoomRetrieveSerializer
-from reservations.serializers.api.reservations import (
-    ReservationListSerializer,
-    ReservationRetrieveSerializer,
-    ReservationCreateSerializer, ReservationUpdateSerializer)
 
 
 @extend_schema_view(

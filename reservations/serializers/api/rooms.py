@@ -68,5 +68,3 @@ class ReservationRoomUpdateSerializer(ExtendedModelSerializer):
             'id',
             'status',
         )
-
-

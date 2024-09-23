@@ -41,6 +41,8 @@ class ReservationRoomAdmin(admin.ModelAdmin):
 
 @admin.register(ReservationClient)
 class ReservationClientAdmin(admin.ModelAdmin):
+    list_display = ('id', 'reservation', 'client', 'checked', 'is_main_client')
+    list_display_links = ('id', 'reservation',)
     search_fields = ('client',)
 
 
