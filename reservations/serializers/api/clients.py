@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from common.serializers.mixins import ExtendedModelSerializer
+from reservations.factories.clients import ReservationClientFactory
 from reservations.models.reservations import (Reservation,
                                               ReservationClient)
 from reservations.serializers.nested.clients import ClientSerializer
@@ -75,12 +76,5 @@ class ReservationClientUpdateSerializer(ExtendedModelSerializer):
         )
 
     def validate(self, attrs):
-        if attrs['is_main_client'] is True:
-            ReservationClient.objects.filter(
-                reservation=self.instance.reservation.id
-            ).exclude(id=self.instance.id).update(is_main_client=False)
-            Reservation.objects.filter(
-                id=self.instance.reservation.id).update(
-                client=self.instance.client)
-
+        ReservationClientFactory().set_client_as_main(self.instance)
         return attrs
