@@ -9,10 +9,6 @@ from clients.models.clients import Client
 from dicts.models.dicts import Gender
 
 
-class FakeTrafficGenerator:
-    pass
-
-
 class FakeClientGenerator:
 
     def __init__(self):
@@ -95,8 +91,3 @@ class FakeClientGenerator:
             )
             clients.append(client)
         return clients
-
-
-class FakeReservationGenerator:
-    pass
-

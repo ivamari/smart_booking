@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 
-from crm.services.generators import FakeClientGenerator
+from crm.services.client_generator import FakeClientGenerator
 
 
 class Command(BaseCommand):
