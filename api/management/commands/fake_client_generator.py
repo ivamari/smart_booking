@@ -11,3 +11,4 @@ class Command(BaseCommand):
         FakeClientGenerator().generate_clients(count)
         self.stdout.write(self.style.SUCCESS(
             f'Добавлено {count} новых записей Client'))
+

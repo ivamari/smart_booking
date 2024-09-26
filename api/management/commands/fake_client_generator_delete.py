@@ -21,3 +21,4 @@ class Command(BaseCommand):
                 f'Удалено {deleted_count} записей из Client'))
         else:
             self.stdout.write(self.style.WARNING('Нет записей для удаления'))
+

@@ -99,3 +99,4 @@ class FakeClientGenerator:
 
 class FakeReservationGenerator:
     pass
+
