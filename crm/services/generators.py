@@ -31,14 +31,14 @@ class FakeClientGenerator:
             return [line.strip() for line in f.readlines()]
 
     def generate_email(self, first_name, middle_name, last_name, dob):
-        first_name_translit = translit(first_name, language_code='ru',
+        first_name_translit = translit(first_name.lower(), language_code='ru',
                                        reversed=True)
-        middle_name_translit = translit(middle_name, language_code='ru',
+        middle_name_translit = translit(middle_name.lower(), language_code='ru',
                                         reversed=True)
-        last_name_translit = translit(last_name, language_code='ru',
+        last_name_translit = translit(last_name.lower(), language_code='ru',
                                       reversed=True)
 
-        return f'{first_name_translit[0]}{middle_name_translit[0]}.{last_name_translit}{dob.year}'
+        return f'{first_name_translit[0]}{middle_name_translit[0]}.{last_name_translit}{dob.year}@mail.ru'
 
     def generate_phone(self):
         phone_number = '+7'
@@ -54,14 +54,15 @@ class FakeClientGenerator:
         return random_date
 
     def generate_client(self, gender):
-        if gender == 'male':
+        if gender == 'M':
             first_name = random.choice(self.first_names_male)
             last_name = random.choice(self.last_names)
+            middle_name = random.choice(self.middle_name_male)
         else:
             first_name = random.choice(self.first_names_female)
             last_name = random.choice(self.last_names) + 'а'
+            middle_name = random.choice(self.middle_name_female)
 
-        middle_name = random.choice(self.middle_name_male)
         dob = self.generate_dob()
         email = self.generate_email(first_name, middle_name, last_name, dob)
         phone = self.generate_phone()
