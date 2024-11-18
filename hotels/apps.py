@@ -1,0 +1,8 @@
+from django.apps import AppConfig
+
+
+class DictsConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'hotels'
+    verbose_name = 'Отели'
+    
